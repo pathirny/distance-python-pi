@@ -1,20 +1,5 @@
-from gpiozero import LED
-import time
+import RPi.GPIO as GPIO
 
-blue = LED(17)
-red = LED(27)
-yellow = LED(22)
+GPIO.setmode(GPIO.BCM)
 
-for x in range(10):
-    blue.on()
-    time.sleep(0.1)
-    blue.off()
-    time.sleep(0.1)
-    red.on()
-    time.sleep(0.1)
-    red.off()
-    time.sleep(0.1)
-    yellow.on()
-    time.sleep(0.1)
-    yellow.off()
-    time.sleep(0.1)
+print("HELLO")
