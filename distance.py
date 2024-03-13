@@ -20,22 +20,24 @@ GPIO.setup(PIN_TRIGGER, GPIO.OUT)
 GPIO.setup(PIN_ECHO, GPIO.IN)
 
 def distance():
-    GPIO.output(PIN_TRIGGER, GPIO.HIGH)
+    GPIO.output(PIN_TRIGGER, 1)  # Set trigger to HIGH
     time.sleep(0.00001)
-    GPIO.output(PIN_TRIGGER, GPIO.LOW)
+    GPIO.output(PIN_TRIGGER, 0)  # Set trigger to LOW
 
     startTime = time.time()
     endTime = time.time()
 
-    while GPIO.input(PIN_ECHO) == 0:
+    # Wait for the echo pulse
+    while GPIO.input(PIN_ECHO) == 0 and time.time() - startTime < 0.1:
         startTime = time.time()
-    while GPIO.input(PIN_ECHO) == 1:
+    while GPIO.input(PIN_ECHO) == 1 and time.time() - startTime < 0.1:
         endTime = time.time()
 
     duration = endTime - startTime
     distance = (duration * 34300) / 2
 
     print(distance)
+
 
 # try:
 #     while True:
