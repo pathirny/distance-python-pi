@@ -21,10 +21,10 @@ def distance():
 # GPIO.output(27, GPIO.LOW)
     GPIO.output(PIN_TRIGGER, True)
 
-    print("Waiting for sensor...")
-    time.sleep(2)
+    # print("Waiting for sensor...")
+    # time.sleep(2)
 
-    print("Calculating distance...")
+    # print("Calculating distance...")
 
     GPIO.output(PIN_TRIGGER, False)
 
@@ -47,4 +47,7 @@ try:
         print(f"Measured distance = {dist}cm")
         time.sleep(1)
 finally:
-    GPIO.cleanup()
+    if KeyboardInterrupt == True:
+        print("Measurement Stopped by user")
+        GPIO.cleanup()
+
