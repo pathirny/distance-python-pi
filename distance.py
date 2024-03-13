@@ -44,13 +44,24 @@ def distance():
 
     distance = (duration * 34300) / 2
 
+    while distance:
+        if distance < 5:
+            GPIO.output(redLed, GPIO.HIGH)
+        elif distance > 5 and distance < 20:
+            GPIO.output(redLed, GPIO.LOW)
+            GPIO.output(yellowLed, GPIO.HIGH)
+        else:
+            GPIO.output(yellowLed, GPIO.LOW)
+            GPIO.output(greenLed, GPIO.HIGH)
+
     return distance
 
+
 try:
-    while True: 
+     while True: 
         dist= distance()
-        # print(f"Measured distance = {dist}cm")
-        # time.sleep(1)
+        print(f"Measured distance = {dist}cm")
+        time.sleep(1)
 
         if dist < 5:
             GPIO.output(redLed, GPIO.HIGH)
@@ -61,7 +72,7 @@ try:
             GPIO.output(yellowLed, GPIO.LOW)
             GPIO.output(greenLed, GPIO.HIGH)
 finally:
-    if KeyboardInterrupt:
-        print("Measurement Stopped by user")
-        GPIO.cleanup()
+     if KeyboardInterrupt:
+         print("Measurement Stopped by user")
+         GPIO.cleanup()
 
