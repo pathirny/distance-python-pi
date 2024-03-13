@@ -16,9 +16,25 @@ PIN_ECHO = 17
 # Set up GPIO pins
 GPIO.setup(redLed, GPIO.OUT)
 GPIO.setup(yellowLed, GPIO.OUT)
-GPIO.setup(greenLed, GPIO.OUT)
 GPIO.setup(PIN_TRIGGER, GPIO.OUT)
 GPIO.setup(PIN_ECHO, GPIO.IN)
+GPIO.setup(greenLed, GPIO.OUT)
+
+def green_light():
+    GPIO.output(greenLed, GPIO.HIGH)
+    GPIO.output(yellowLed, GPIO.LOW)
+    GPIO.output(redLed, GPIO.LOW)
+
+def yellow_light():
+    GPIO.output(greenLed, GPIO.LOW)
+    GPIO.output(yellowLed, GPIO.HIGH)
+    GPIO.output(redLed, GPIO.LOW)
+
+def red_light():
+    GPIO.output(greenLed, GPIO.LOW)
+    GPIO.output(yellowLed, GPIO.LOW)
+    GPIO.output(redLed, GPIO.HIGH) 
+
 def get_distance():
     GPIO.output(PIN_TRIGGER, True)  # Set trigger to HIGH
     time.sleep(0.0001)
@@ -34,6 +50,17 @@ def get_distance():
     distance = duration / 0.000058
 
     return distance
+
+while True: 
+    distance = get_distance()
+    time.sleep(0.05)
+
+    if distance >= 9:
+        green_light()
+    elif distance < 9 and distance > 7:
+        yellow_light()
+    elif distance <= 6:
+        red_light()
 
 
 # try:
