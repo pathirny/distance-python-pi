@@ -2,8 +2,9 @@ import RPi.GPIO as GPIO
 import time
 
 # Set the GPIO mode and warnings
-GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
+GPIO.cleanup()
+GPIO.setmode(GPIO.BCM)
 
 # Define the GPIO pins for LEDs and ultrasonic sensor
 greenLed = 23
@@ -18,25 +19,21 @@ GPIO.setup(yellowLed, GPIO.OUT)
 GPIO.setup(greenLed, GPIO.OUT)
 GPIO.setup(PIN_TRIGGER, GPIO.OUT)
 GPIO.setup(PIN_ECHO, GPIO.IN)
-
-def distance():
-    GPIO.output(PIN_TRIGGER, 1)  # Set trigger to HIGH
-    time.sleep(0.00001)
-    GPIO.output(PIN_TRIGGER, 0)  # Set trigger to LOW
-
-    startTime = time.time()
-    endTime = time.time()
+def get_distance():
+    GPIO.output(PIN_TRIGGER, True)  # Set trigger to HIGH
+    time.sleep(0.0001)
+    GPIO.output(PIN_TRIGGER, False)  # Set trigger to LOW
 
     # Wait for the echo pulse
-    while GPIO.input(PIN_ECHO) == 0 and time.time() - startTime < 0.1:
+    while GPIO.input(PIN_ECHO) == False:
         startTime = time.time()
-    while GPIO.input(PIN_ECHO) == 1 and time.time() - startTime < 0.1:
+    while GPIO.input(PIN_ECHO) == True:
         endTime = time.time()
 
     duration = endTime - startTime
-    distance = (duration * 34300) / 2
+    distance = duration / 0.000058
 
-    print(distance)
+    return distance
 
 
 # try:
