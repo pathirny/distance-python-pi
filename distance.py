@@ -39,6 +39,9 @@ def get_distance():
     time.sleep(0.0001)
     GPIO.output(PIN_TRIGGER, False)  # Set trigger to LOW
 
+    startTime = time.time()
+    endTime = time.time()
+
     # Wait for the echo pulse
     while GPIO.input(PIN_ECHO) == False:
         startTime = time.time()
@@ -50,16 +53,17 @@ def get_distance():
 
     return distance
 
+
 while True: 
     distance = get_distance()
     time.sleep(0.05)
-
-    if distance >= 9:
-        green_light()
-    elif distance < 9 and distance > 7:
-        yellow_light()
-    elif distance <= 6:
-        red_light()
+    print(f"Distance: {distance}")
+#     if distance >= 9:
+#         green_light()
+#     elif distance < 9 and distance > 7:
+#         yellow_light()
+#     elif distance <= 6:
+#         red_light()
 
 
 # try:
