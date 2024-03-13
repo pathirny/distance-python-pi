@@ -3,37 +3,36 @@ import time
 
 # Set the GPIO mode and warnings
 GPIO.setwarnings(False)
-GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 
 # Define the GPIO pins for LEDs and ultrasonic sensor
-greenLed = 23
-yellowLed = 22
-redLed = 27
+GREEN = 23
+YELLOW = 22
+RED = 27
 PIN_TRIGGER = 4
 PIN_ECHO = 17
 
 # Set up GPIO pins
-GPIO.setup(redLed, GPIO.OUT)
-GPIO.setup(yellowLed, GPIO.OUT)
+GPIO.setup(RED, GPIO.OUT)
+GPIO.setup(YELLOW, GPIO.OUT)
 GPIO.setup(PIN_TRIGGER, GPIO.OUT)
 GPIO.setup(PIN_ECHO, GPIO.IN)
-GPIO.setup(greenLed, GPIO.OUT)
+GPIO.setup(GREEN, GPIO.OUT)
 
 def green_light():
-    GPIO.output(greenLed, GPIO.HIGH)
-    GPIO.output(yellowLed, GPIO.LOW)
-    GPIO.output(redLed, GPIO.LOW)
+    GPIO.output(GREEN, GPIO.HIGH)
+    GPIO.output(YELLOW, GPIO.LOW)
+    GPIO.output(RED, GPIO.LOW)
 
 def yellow_light():
-    GPIO.output(greenLed, GPIO.LOW)
-    GPIO.output(yellowLed, GPIO.HIGH)
-    GPIO.output(redLed, GPIO.LOW)
+    GPIO.output(GREEN, GPIO.LOW)
+    GPIO.output(YELLOW, GPIO.HIGH)
+    GPIO.output(RED, GPIO.LOW)
 
 def red_light():
-    GPIO.output(greenLed, GPIO.LOW)
-    GPIO.output(yellowLed, GPIO.LOW)
-    GPIO.output(redLed, GPIO.HIGH) 
+    GPIO.output(GREEN, GPIO.LOW)
+    GPIO.output(YELLOW, GPIO.LOW)
+    GPIO.output(RED, GPIO.HIGH) 
 
 def get_distance():
     GPIO.output(PIN_TRIGGER, True)  # Set trigger to HIGH
@@ -70,17 +69,17 @@ while True:
 #         time.sleep(1)
 
 #         if dist < 5:
-#             GPIO.output(redLed, GPIO.HIGH)
-#             GPIO.output(yellowLed, GPIO.LOW)
-#             GPIO.output(greenLed, GPIO.LOW)
+#             GPIO.output(RED, GPIO.HIGH)
+#             GPIO.output(YELLOW, GPIO.LOW)
+#             GPIO.output(GREEN, GPIO.LOW)
 #         elif 5 <= dist < 20:
-#             GPIO.output(redLed, GPIO.LOW)
-#             GPIO.output(yellowLed, GPIO.HIGH)
-#             GPIO.output(greenLed, GPIO.LOW)
+#             GPIO.output(RED, GPIO.LOW)
+#             GPIO.output(YELLOW, GPIO.HIGH)
+#             GPIO.output(GREEN, GPIO.LOW)
 #         else:
-#             GPIO.output(redLed, GPIO.LOW)
-#             GPIO.output(yellowLed, GPIO.LOW)
-#             GPIO.output(greenLed, GPIO.HIGH)
+#             GPIO.output(RED, GPIO.LOW)
+#             GPIO.output(YELLOW, GPIO.LOW)
+#             GPIO.output(GREEN, GPIO.HIGH)
 
 # except KeyboardInterrupt:
 #     print("Measurement Stopped by user")
